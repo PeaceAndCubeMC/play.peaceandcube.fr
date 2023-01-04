@@ -1,0 +1,28 @@
+h1 {
+    padding: 10px;
+    font-family: 'Verdana', sans-serif;
+}
+
+#birthdays {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.player {
+    padding: 10px;
+    text-align: center;
+    font-family: Minecraftia, sans-serif;
+    font-size: 14px;
+}
+
+p {
+    width: 180px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+@font-face {
+    font-family: Minecraftia;
+    src: url("font/Minecraftia.ttf");
+}
