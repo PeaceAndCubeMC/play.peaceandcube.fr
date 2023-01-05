@@ -8,13 +8,22 @@ $dotenv->load();
 use xPaw\MinecraftQuery;
 use xPaw\MinecraftQueryException;
 
+$response = [];
+
 $shouldContinue = false;
 if (check_site_1() && check_site_2() && check_site_3()) {
   $shouldContinue = true;
 }
 
 if ($shouldContinue) {
-  $username = $_GET["username"];
+  $username = $_POST["username"];
+
+  if (empty($username)) {
+    $response["state"] = "USERNAME_EMPTY";
+    $response["message"] = "Tu n'as pas renseigné ton pseudo !";
+    echo json_encode($response);
+    exit();
+  }
 
   // Display everything in browser, because some people can't look in logs for errors
   Error_Reporting(E_ALL | E_STRICT);
@@ -41,13 +50,13 @@ if ($shouldContinue) {
             $pdo = new PDO('sqlite:' . dirname(__FILE__) . '/votes.sqlite');
             $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // ERRMODE_WARNING | ERRMODE_EXCEPTION | ERRMODE_SILENT
-            $pdo->query("CREATE TABLE IF NOT EXISTS votes ( 
-          id            INTEGER         PRIMARY KEY AUTOINCREMENT,
-          pseudo         VARCHAR( 20 ),
-          created       DATETIME,
-          last DATETIME,
-          totalvote INTEGER
-          )");
+            $pdo->query("CREATE TABLE IF NOT EXISTS votes (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              pseudo VARCHAR(20),
+              created DATETIME,
+              last DATETIME,
+              totalvote INTEGER
+            )");
         }
         catch (Exception $e) {
             echo "Impossible d'accéder à la base de données SQLite : " . $e->getMessage();
@@ -71,6 +80,9 @@ if ($shouldContinue) {
             require 'MinecraftVotifier.php';
             $votifier = new MinecraftVotifier($_ENV["VOTIFIER_PUBLIC_KEY"], $_ENV["MC_SERVER_IP"], '8192', 'vote');
             $votifier->sendVote($username);
+
+            $response["state"] = "SUCCESS";
+            $response["message"] = "Merci d'avoir voté !";
         }
         else {
             $d1 = new DateTime(date("Y-m-d H:i:s"));
@@ -84,28 +96,36 @@ if ($shouldContinue) {
                 require 'MinecraftVotifier.php';
                 $votifier = new MinecraftVotifier($_ENV["VOTIFIER_PUBLIC_KEY"], $_ENV["MC_SERVER_IP"], '8192', 'vote');
                 $votifier->sendVote($username);
+
+                $response["state"] = "SUCCESS";
+                $response["message"] = "Merci d'avoir voté !";
             } else {
-                $date_expire=$d2->modify('+1 day');
-                echo '</br>Tu as déjà voté ces dernières 24h :)!</br><br>Encore ' . date_diff($date_expire, $d1)->format('%H heures %i minutes %s secondes avant de voter.');
+                $date_expire = $d2->modify('+1 day');
+                $response["state"] = "ALREADY_VOTED";
+                $response["message"] = "Tu as déjà voté ces dernières 24h ! Encore " . date_diff($date_expire, $d1)->format('%H heures %i minutes %s secondes avant de voter.');
             }
         }
     } else {
-        echo $username . " " . "n'est pas connecté.";
+      $response["state"] = "NOT_CONNECTED";
+      $response["message"] = "Tu n'es pas connecté sur le serveur !";
     }
   } else {
     echo "Erreur";
   }
+} else {
+  $response["state"] = "NOT_VOTED";
 }
 
+echo json_encode($response);
+
 function check_site_1() {
+  global $response;
   $API_key = $_ENV["SITE_1_TOKEN"]; // Token de votre serveur
   $API_ip = $_SERVER['REMOTE_ADDR']; // Adresse IP de l'utilisateur
   $json = file_get_contents("https://serveur-prive.net/api/vote/json/$API_key/$API_ip");
   $json_data = json_decode($json);
 
   if($json_data->status == 1) {
-    echo 'Vous avez bien voté';
-
     // Vous pouvez utiliser les variables suivantes :
     $json_data->vote; // Correspond à la date du vote au format timestamp
     $json_data->nextvote; // Correspond au nombre de secondes restantes avant que l'utilisateur puisse à nouveau voter
@@ -114,8 +134,7 @@ function check_site_1() {
     return true;
   }
   else {
-    echo 'Pas ou déjà voté';
-    
+    $response["message"] = "Tu n'as pas voté sur serveur-prive.net !";
     return false;
   }
 }

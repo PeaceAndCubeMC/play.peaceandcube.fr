@@ -25,6 +25,8 @@
   <link rel="stylesheet" href="./css/styles.css">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <script src="js/username.js"></script>
+  <script src="js/vote.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
   <body>
@@ -49,7 +51,7 @@
         <div class="card">
           <h2>Vote quotidiennement pour le serveur, et reçois 5 coins en récompense !</h2>
           <p>Clique sur chacun des liens pour voter pour le serveur, et entre ton pseudo en étant connecté sur le serveur !</p>
-          <form action="dovote.php">
+          <form action="" onsubmit="return false">
             <div class="username">
               <input type="text" id="username" name="username" placeholder="" maxlength="16" required autocomplete="username" data-form-type="username" title="Pseudo">
               <label for="username">Entre ton pseudo</label>
@@ -59,7 +61,7 @@
               <label for="remember_me">Se souvenir de moi</label>
             </div>
             <label for="submit" class="hide_label">Submit</label>
-            <button id="submit">Je vote !</button>
+            <button id="submit" onclick="submitVote();">Je vote !</button>
           </form>
         </div>
         </div>
