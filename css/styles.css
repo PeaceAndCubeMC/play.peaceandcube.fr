@@ -488,3 +488,16 @@ input:focus{
   }
   }
 
+/* popup background */
+.theme-dark .swal2-container .swal2-popup, .theme-light .swal2-container .swal2-popup {
+  background: var(--color-primary);
+  color: var(--font-color-one);
+}
+.theme-dark .swal2-styled.swal2-confirm, .theme-light .swal2-styled.swal2-confirm{
+ background-color: #58A15C;
+}
+.theme-dark .swal2-icon.swal2-warning,
+.theme-light .swal2-icon.swal2-warning{
+  border-color: #FFCA28 !important;
+  color: #FFCA28 !important; 
+} 
