@@ -498,6 +498,6 @@ input:focus{
 }
 .theme-dark .swal2-icon.swal2-warning,
 .theme-light .swal2-icon.swal2-warning{
-  border-color: #F54F43 !important;
-  color: #F54F43 !important; 
+  border-color: #FFCA28 !important;
+  color: #FFCA28 !important; 
 } 
