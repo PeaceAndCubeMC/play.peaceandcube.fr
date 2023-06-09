@@ -11,7 +11,7 @@ use xPaw\MinecraftQueryException;
 $response = [];
 
 $shouldContinue = false;
-if (check_site_1() && check_site_2() && check_site_3()) {
+if (check_site_1($response) && check_site_2($response) && check_site_3($response)) {
   $shouldContinue = true;
 }
 
@@ -118,8 +118,7 @@ if ($shouldContinue) {
 
 echo json_encode($response);
 
-function check_site_1() {
-  global $response;
+function check_site_1(&$response) {
   $serverToken = $_ENV["SITE_1_TOKEN"]; // Token de votre serveur
   $remoteAddr = $_SERVER['REMOTE_ADDR']; // Adresse IP de l'utilisateur
   $json = file_get_contents("https://serveur-prive.net/api/vote/json/$serverToken/$remoteAddr");
@@ -139,8 +138,7 @@ function check_site_1() {
   }
 }
 
-function check_site_2() {
-  global $response;
+function check_site_2(&$response) {
   $serverId = $_ENV["SITE_2_SERVER_ID"];
   $remoteAddr = $_SERVER['REMOTE_ADDR'];
   $apiUrl = "https://www.serveursminecraft.org/sm_api/peutVoter.php?id=$serverId&ip=$remoteAddr";
@@ -155,13 +153,13 @@ function check_site_2() {
   }
 }
 
-function check_site_3() {
-  global $response;
+function check_site_3(&$response) {
   $serverToken = $_ENV["SITE_3_TOKEN"]; // Token de votre serveur
   $remoteAddr = $_SERVER['REMOTE_ADDR'];
   $apiUrl = "https://api.top-serveurs.net/v1/votes/check-ip?server_token=$serverToken&ip=$remoteAddr";
   $apiResult = file_get_contents($apiUrl);
   $json = json_decode($apiResult);
+
   if ($json->success) {
     return true;
   } else {
