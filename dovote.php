@@ -120,9 +120,9 @@ echo json_encode($response);
 
 function check_site_1() {
   global $response;
-  $API_key = $_ENV["SITE_1_TOKEN"]; // Token de votre serveur
-  $API_ip = $_SERVER['REMOTE_ADDR']; // Adresse IP de l'utilisateur
-  $json = file_get_contents("https://serveur-prive.net/api/vote/json/$API_key/$API_ip");
+  $serverToken = $_ENV["SITE_1_TOKEN"]; // Token de votre serveur
+  $remoteAddr = $_SERVER['REMOTE_ADDR']; // Adresse IP de l'utilisateur
+  $json = file_get_contents("https://serveur-prive.net/api/vote/json/$serverToken/$remoteAddr");
   $json_data = json_decode($json);
 
   if($json_data->status == 1) {
@@ -140,31 +140,34 @@ function check_site_1() {
 }
 
 function check_site_2() {
-  return true;
-  // $api_adress = "https://www.serveursminecraft.org/sm_api/peutVoter.php?id=6335&ip=play.peaceandcube.fr:10098";
-  // $api_result = @file_get_contents($api_adress);
-  // if($api_result == "true")
-  // {
-  //     return true;
-  // }
-  // else
-  // {
-  //     // return $api_result; // la variable donne le nombre de seconde restant.
-  //     return false;
-  // }
+  global $response;
+  $serverId = $_ENV["SITE_2_SERVER_ID"];
+  $remoteAddr = $_SERVER['REMOTE_ADDR'];
+  $apiUrl = "https://www.serveursminecraft.org/sm_api/peutVoter.php?id=$serverId&ip=$remoteAddr";
+  $apiResult = file_get_contents($apiUrl);
+
+  if ($apiResult == "true") {
+    $response["message"] = "Tu n'as pas voté sur serveursminecraft.org !";
+    return false;
+  } else {
+    // return $apiResult; // la variable donne le nombre de seconde restant.
+    return true;
+  }
 }
 
 function check_site_3() {
-  return true;
-  // $serverToken = $_ENV["SITE_3_TOKEN"]; // Token de votre serveur
-  // $apiUrl = "https://api.top-serveurs.net/v1/votes/check-ip?server_token=$serverToken&ip=play.peaceandcube.fr:10098";
-  // $apiResult = file_get_contents($apiUrl);
-  // $json = json_decode($apiResult);
-  // if ($json->success) {
-  //   return true;
-  // } else {
-  //   return false;
-  // }
+  global $response;
+  $serverToken = $_ENV["SITE_3_TOKEN"]; // Token de votre serveur
+  $remoteAddr = $_SERVER['REMOTE_ADDR'];
+  $apiUrl = "https://api.top-serveurs.net/v1/votes/check-ip?server_token=$serverToken&ip=$remoteAddr";
+  $apiResult = file_get_contents($apiUrl);
+  $json = json_decode($apiResult);
+  if ($json->success) {
+    return true;
+  } else {
+    $response["message"] = "Tu n'as pas voté sur top-serveurs.net !";
+    return false;
+  }
 }
 
 ?>
