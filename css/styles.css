@@ -140,6 +140,7 @@ transform: scale(1.1);
 }
 .wrap .card form .username{
   position:absolute;
+  max-width: 310px;
 }
 .wrap .card form .remember{
   position:relative;
