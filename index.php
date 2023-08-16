@@ -99,7 +99,7 @@
         
       </div>
       <footer>
-        <p>Réalisé par <a href="http://mc.devlose.fr" target="bank">Devlose</a> avec l'aide de <a href="https://github.com/YanisBft" target="bank">YanisBft</a>, Foxkills et Vastidus - © 2013-2022 <a href="https://peaceandcube.fr/">PeaceAndCube</a></p>
+        <p>Réalisé par <a href="http://mc.devlose.fr" target="bank">Devlose</a> et <a href="https://github.com/YanisBft" target="bank">YanisBft</a>, avec l'aide de Vastidus et Foxkills - © 2013-2023 <a href="https://peaceandcube.fr/">PeaceAndCube</a> - <a id="sourcecode" href="https://github.com/PeaceAndCubeMC/play.peaceandcube.fr" target="bank">Voir le code source</a></p>
       </footer>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
       <script src="js/theme.js"></script>
