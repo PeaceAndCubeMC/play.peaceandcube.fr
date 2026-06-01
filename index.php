@@ -45,9 +45,9 @@
 
       <div class="main">
         <div class="wrap">
-          <a href="https://serveur-prive.net/minecraft/peaceandcube-12137" target="_blank" class="link-vote">Voter sur serveur-prive.net</a>
+          <a href="https://serveur-prive.net/minecraft/peaceandcube-12137/vote" target="_blank" class="link-vote">Voter sur serveur-prive.net</a>
           <a href="https://www.serveursminecraft.org/serveur/6335/" target="_blank" class="link-vote">Voter sur serveursminecraft.org</a>
-          <a href="https://top-serveurs.net/minecraft/peaceandcube" target="_blank" class="link-vote">Voter sur top-serveurs.net</a>
+          <a href="https://top-serveurs.net/minecraft/vote/peaceandcube" target="_blank" class="link-vote">Voter sur top-serveurs.net</a>
         <div class="card">
           <h2>Vote quotidiennement pour le serveur, et reçois 5 coins en récompense !</h2>
           <p>Clique sur chacun des liens pour voter pour le serveur, et entre ton pseudo en étant connecté sur le serveur !</p>
@@ -99,7 +99,7 @@
         
       </div>
       <footer>
-        <p>Réalisé par <a href="http://mc.devlose.fr" target="bank">Devlose</a> et <a href="https://github.com/YanisBft" target="bank">YanisBft</a>, avec l'aide de Vastidus et Foxkills - © 2013-2023 <a href="https://peaceandcube.fr/">PeaceAndCube</a> - <a id="sourcecode" href="https://github.com/PeaceAndCubeMC/play.peaceandcube.fr" target="bank">Voir le code source</a></p>
+        <p>Réalisé par <a href="http://mc.devlose.fr" target="bank">Devlose</a> et <a href="https://github.com/YanisBft" target="bank">YanisBft</a>, avec l'aide de Vastidus et Foxkills - © 2013-2026 <a href="https://peaceandcube.fr/">PeaceAndCube</a> - <a id="sourcecode" href="https://github.com/PeaceAndCubeMC/play.peaceandcube.fr" target="bank">Voir le code source</a></p>
       </footer>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
       <script src="js/theme.js"></script>
