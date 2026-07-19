@@ -117,7 +117,7 @@ function check_site_1(array &$response): bool
 {
     $serverToken = $_ENV["SITE_1_TOKEN"];
     $userIp = $_SERVER['REMOTE_ADDR'];
-    $result = file_get_contents("https://serveur-prive.net/api/v1/servers/$serverToken/votes/$userIp");
+    $result = get_request("https://serveur-prive.net/api/v1/servers/$serverToken/votes/$userIp");
     $data = json_decode($result);
 
     if ($data->success) {
@@ -137,7 +137,7 @@ function check_site_2(array &$response): bool
 {
     $serverId = $_ENV["SITE_2_SERVER_ID"];
     $userIp = $_SERVER['REMOTE_ADDR'];
-    $result = file_get_contents("https://www.serveursminecraft.org/sm_api/peutVoter.php?id=$serverId&ip=$userIp");
+    $result = get_request("https://www.serveursminecraft.org/sm_api/peutVoter.php?id=$serverId&ip=$userIp");
 
     if ($result == "true") {
         $response["message"] = "Tu n'as pas voté sur serveursminecraft.org !";
@@ -152,7 +152,7 @@ function check_site_3(array &$response): bool
 {
     $serverToken = $_ENV["SITE_3_TOKEN"];
     $userIp = $_SERVER['REMOTE_ADDR'];
-    $result = file_get_contents("https://api.top-serveurs.net/v1/votes/check-ip?server_token=$serverToken&ip=$userIp");
+    $result = get_request("https://api.top-serveurs.net/v1/votes/check-ip?server_token=$serverToken&ip=$userIp");
     $data = json_decode($result);
 
     if ($data->success) {
@@ -163,4 +163,10 @@ function check_site_3(array &$response): bool
     }
 }
 
-?>
+function get_request($url): bool|string
+{
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    return curl_exec($ch);
+}
