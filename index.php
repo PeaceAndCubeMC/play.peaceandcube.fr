@@ -32,16 +32,16 @@
   <body>
     <div class="container">
       <label id="switch" class="switch">
-              <input type="checkbox" onchange="toggleTheme()" id="slider"/>
-              <span class="check-slider round"></span>
-          </label>
+        <input type="checkbox" onchange="toggleTheme()" id="slider"/>
+        <span class="check-slider round"></span>
+      </label>
     </div>
     <div class="header">
-        <h1><img src="./img/logo.png" draggable="false" alt="Page de vote PAC"/></h1>
-        <a class="back" href="https://peaceandcube.fr/"><p>Retourner sur <span>peaceandcube.fr</span></p></a>
-      </div>
-
-      
+      <h1>
+        <img src="./img/logo.png" draggable="false" alt="Page de vote PAC"/>
+      </h1>
+      <a class="back" href="https://peaceandcube.fr/"><p>Retourner sur <span>peaceandcube.fr</span></p></a>
+    </div>
 
       <div class="main">
         <div class="wrap">
@@ -54,7 +54,7 @@
           <form action="" onsubmit="return false">
             <div class="username">
               <input type="text" id="username" name="username" placeholder="" maxlength="16" required autocomplete="username" data-form-type="username" title="Pseudo">
-              <label for="username">Entre ton pseudo</label>
+              <label for="username">Entre ton pseudo *</label>
             </div>
             <div id="checkbox" class="remember">
               <input type="checkbox" name="remember_me" id="remember_me">
@@ -70,21 +70,21 @@
         </p>
         <div class="slider-wrap">
           <h2>Avec les coins, vous pouvez</h2>
-        
+
         <div class="slider">
-        
+
           <div class="slider-panel-set">
-              
+
             <div class="slider-panel">
               <div class="img one"><p>accéder à des donjons</p></div>
               </div>
-              
+
             <div class="slider-panel">
               <div class="img three"><p>tenter de doubler la mise,<br>grâce à la roulette du hippie</p></div>
             </div>
-            
+
           </div>
-          
+
             <div class="buttons">
               <div class="left">
                 &lt;
@@ -93,13 +93,13 @@
                 &gt;
               </div>
             </div>
-          
+
         </div>
         </div>
-        
+
       </div>
       <footer>
-        <p>Réalisé par <a href="http://mc.devlose.fr" target="bank">Devlose</a> et <a href="https://github.com/YanisBft" target="bank">YanisBft</a>, avec l'aide de Vastidus et Foxkills - © 2013-2026 <a href="https://peaceandcube.fr/">PeaceAndCube</a> - <a id="sourcecode" href="https://github.com/PeaceAndCubeMC/play.peaceandcube.fr" target="bank">Voir le code source</a></p>
+        <p>Réalisé par <a href="https://github.com/Devlose" target="bank">Devlose</a> et <a href="https://github.com/YanisBft" target="bank">YanisBft</a>, avec l'aide de Vastidus et Foxkills - © 2013-2026 <a href="https://peaceandcube.fr/">PeaceAndCube</a> - <a id="sourcecode" href="https://github.com/PeaceAndCubeMC/play.peaceandcube.fr" target="bank">Voir le code source</a></p>
       </footer>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
       <script src="js/theme.js"></script>
