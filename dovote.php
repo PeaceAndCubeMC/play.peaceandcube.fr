@@ -113,20 +113,18 @@ if ($shouldContinue) {
     $response["state"] = "NOT_VOTED";
 }
 
-echo json_encode($response);
-
-function check_site_1(&$response)
+function check_site_1(array &$response): bool
 {
-    $serverToken = $_ENV["SITE_1_TOKEN"]; // Token de votre serveur
-    $remoteAddr = $_SERVER['REMOTE_ADDR']; // Adresse IP de l'utilisateur
-    $json = file_get_contents("https://serveur-prive.net/api/vote/json/$serverToken/$remoteAddr");
-    $json_data = json_decode($json);
+    $serverToken = $_ENV["SITE_1_TOKEN"];
+    $userIp = $_SERVER['REMOTE_ADDR'];
+    $result = file_get_contents("https://serveur-prive.net/api/v1/servers/$serverToken/votes/$userIp");
+    $data = json_decode($result);
 
-    if ($json_data->status == 1) {
+    if ($data->success) {
         // Vous pouvez utiliser les variables suivantes :
-        $json_data->vote; // Correspond à la date du vote au format timestamp
-        $json_data->nextvote; // Correspond au nombre de secondes restantes avant que l'utilisateur puisse à nouveau voter
-        $json_data->pseudo; // Pseudonyme de l'utilisateur (si il a spécifié son pseudo lors de son vote)
+        $data->voted_at; // Correspond à la date du vote au format timestamp
+        $data->next_vote_seconds; // Correspond au nombre de secondes restantes avant que l'utilisateur puisse à nouveau voter
+        $data->username; // Pseudonyme de l'utilisateur (si il a spécifié son pseudo lors de son vote)
 
         return true;
     } else {
@@ -135,31 +133,29 @@ function check_site_1(&$response)
     }
 }
 
-function check_site_2(&$response)
+function check_site_2(array &$response): bool
 {
     $serverId = $_ENV["SITE_2_SERVER_ID"];
-    $remoteAddr = $_SERVER['REMOTE_ADDR'];
-    $apiUrl = "https://www.serveursminecraft.org/sm_api/peutVoter.php?id=$serverId&ip=$remoteAddr";
-    $apiResult = file_get_contents($apiUrl);
+    $userIp = $_SERVER['REMOTE_ADDR'];
+    $result = file_get_contents("https://www.serveursminecraft.org/sm_api/peutVoter.php?id=$serverId&ip=$userIp");
 
-    if ($apiResult == "true") {
+    if ($result == "true") {
         $response["message"] = "Tu n'as pas voté sur serveursminecraft.org !";
         return false;
     } else {
-        // return $apiResult; // la variable donne le nombre de seconde restant.
+        // return $result; // la variable donne le nombre de seconde restant.
         return true;
     }
 }
 
-function check_site_3(&$response)
+function check_site_3(array &$response): bool
 {
-    $serverToken = $_ENV["SITE_3_TOKEN"]; // Token de votre serveur
-    $remoteAddr = $_SERVER['REMOTE_ADDR'];
-    $apiUrl = "https://api.top-serveurs.net/v1/votes/check-ip?server_token=$serverToken&ip=$remoteAddr";
-    $apiResult = file_get_contents($apiUrl);
-    $json = json_decode($apiResult);
+    $serverToken = $_ENV["SITE_3_TOKEN"];
+    $userIp = $_SERVER['REMOTE_ADDR'];
+    $result = file_get_contents("https://api.top-serveurs.net/v1/votes/check-ip?server_token=$serverToken&ip=$userIp");
+    $data = json_decode($result);
 
-    if ($json->success) {
+    if ($data->success) {
         return true;
     } else {
         $response["message"] = "Tu n'as pas voté sur top-serveurs.net !";

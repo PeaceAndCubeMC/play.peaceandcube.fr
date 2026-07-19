@@ -2,6 +2,7 @@
   "require": {
     "xpaw/php-minecraft-query": "^4.0",
     "vlucas/phpdotenv": "^5.5",
-    "ext-json": "*"
+    "ext-json": "*",
+    "php": ">=8.1"
   }
 }
